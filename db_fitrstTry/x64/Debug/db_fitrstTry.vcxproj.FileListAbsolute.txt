@@ -1,1 +1,2 @@
 C:\Projects\first\db_fitrstTry\x64\Debug\db_fitrstTry.exe
+C:\VSprojects\db_firstTry\db_fitrstTry\x64\Debug\db_fitrstTry.exe

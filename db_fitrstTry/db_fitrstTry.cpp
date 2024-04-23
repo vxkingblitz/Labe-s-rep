@@ -3,8 +3,9 @@
 #include <iostream>
 #include <string>
 #include <fstream>
-#include <vector>
 #include <sstream>
+#include <iomanip>
+
 using namespace std;
 
 class Member
@@ -76,22 +77,22 @@ void DeleteMember()
         }
 }
 
-
 void ShowTable()
 {
+    cout << "id\t" << "imia" << setw(20) << "otchestvo" << setw(20) << "familia" << setw(15) << "phone"<< setw(18) << "rojdenie"<< setw(12) << "duration" << setw(10) << "price" << endl;
 	for (int i = 0; i < sizeof(members)/sizeof(Member); i++)
 	{
         if (members[i].last_name[0] != '\0')
         {
             cout << endl;
-            cout << members[i].id << "\t";
-            cout << members[i].first_name << "\t";
-            cout << members[i].middle_name << "\t";
-            cout << members[i].last_name << "\t";
-            cout << members[i].phone << "\t";
-            cout << members[i].date_of_bitrh << "\t";
-            cout << members[i].duration << "\t";
-            cout << members[i].price << "\t";
+            cout << setw(8) << left << members[i].id;
+            cout << setw(15) << members[i].first_name;
+            cout << setw(22) << members[i].middle_name;
+            cout << setw(17) << members[i].last_name;
+            cout << setw(15) << members[i].phone;
+            cout << setw(15) << members[i].date_of_bitrh;
+            cout << setw(12) << members[i].duration;
+            cout << members[i].price;
             cout << endl;
         }
         else
@@ -103,13 +104,96 @@ void ShowTable()
 }
 
 void Search() {
+    int predel = -1;
     string InfoToFound;
-    cout << "Vvedite chto hotite naiti" << endl;
-    cin >> InfoToFound;
-    for (int i = 0; i < sizeof(members) / sizeof(Member); i++)
+    string InfoToFound_upper;
+    string InfoToFound_lower;
+    cout << "1.Poisk po vsei tabl" << endl;
+    cout << "2.Poisk po verhnimu predelu " << endl;
+    cout << "3.Poisk po nizhnemu predelu " << endl;
+    cout << "4.Poisk po verhnimu i nizhnemu predelam" << endl;
+    cin >> predel;
+    switch (predel) {
+    case 1:
     {
-        if (InfoToFound == members[i].first_name || InfoToFound == members[i].middle_name || InfoToFound == members[i].last_name || InfoToFound == members[i].phone || InfoToFound == members[i].date_of_bitrh || InfoToFound == members[i].duration || InfoToFound == members[i].price) {
-            cout << "Informajia bila naidena tut: " << endl;
+        cout << "Vvedite chto hotite naiti" << endl;
+        cin >> InfoToFound;
+        bool flag = false;
+        for (int i = 0; i < sizeof(members) / sizeof(Member); i++)
+        {
+            if (InfoToFound == to_string(members[i].id) || InfoToFound == members[i].first_name || InfoToFound == members[i].middle_name || InfoToFound == members[i].last_name || InfoToFound == members[i].phone || InfoToFound == members[i].date_of_bitrh || InfoToFound == members[i].duration || InfoToFound == members[i].price) {
+                cout << "Informajia bila naidena tut: " << endl;
+                cout << members[i].id << "\t";
+                cout << members[i].first_name << "\t";
+                cout << members[i].middle_name << "\t";
+                cout << members[i].last_name << "\t";
+                cout << members[i].phone << "\t";
+                cout << members[i].date_of_bitrh << "\t";
+                cout << members[i].duration << "\t";
+                cout << members[i].price << "\t";
+                cout << endl;
+                flag = true;
+            }
+        }
+        if (flag == false) { cout << "Takoi info net" << endl; }
+        break;
+    }
+    case 2:
+    {
+        cout << "Vvedite verhnii predel" << endl;
+        cin >> InfoToFound_upper;
+        bool flag = false;
+        for (int i = 0; i < sizeof(members) / sizeof(Member); i++)
+        {
+            if (flag == false) {
+                if (InfoToFound_upper == to_string(members[i].id) || InfoToFound_upper == members[i].first_name || InfoToFound_upper == members[i].middle_name || InfoToFound_upper == members[i].last_name || InfoToFound_upper == members[i].phone || InfoToFound_upper == members[i].date_of_bitrh || InfoToFound_upper == members[i].duration || InfoToFound_upper == members[i].price) {
+                    cout << members[i].id << "\t";
+                    cout << members[i].first_name << "\t";
+                    cout << members[i].middle_name << "\t";
+                    cout << members[i].last_name << "\t";
+                    cout << members[i].phone << "\t";
+                    cout << members[i].date_of_bitrh << "\t";
+                    cout << members[i].duration << "\t";
+                    cout << members[i].price << "\t";
+                    cout << endl;
+                    flag = true;
+                }
+            }
+            else if (members[i].last_name[0] != '\0') {
+
+                cout << members[i].id << "\t";
+                cout << members[i].first_name << "\t";
+                cout << members[i].middle_name << "\t";
+                cout << members[i].last_name << "\t";
+                cout << members[i].phone << "\t";
+                cout << members[i].date_of_bitrh << "\t";
+                cout << members[i].duration << "\t";
+                cout << members[i].price << "\t";
+                cout << endl;
+            }
+        }
+        if (flag == false) { cout << "Takoi info net" << endl; }
+        break;
+    }
+    case 3:
+    {
+        cout << "Vvedite nizhnii predel" << endl;
+        cin >> InfoToFound_lower;
+        for (int i = 0; i < sizeof(members) / sizeof(Member); i++)
+        {
+
+            if (InfoToFound_lower == to_string(members[i].id) || InfoToFound_lower == members[i].first_name || InfoToFound_lower == members[i].middle_name || InfoToFound_lower == members[i].last_name || InfoToFound_lower == members[i].phone || InfoToFound_lower == members[i].date_of_bitrh || InfoToFound_lower == members[i].duration || InfoToFound_lower == members[i].price) {
+                cout << members[i].id << "\t";
+                cout << members[i].first_name << "\t";
+                cout << members[i].middle_name << "\t";
+                cout << members[i].last_name << "\t";
+                cout << members[i].phone << "\t";
+                cout << members[i].date_of_bitrh << "\t";
+                cout << members[i].duration << "\t";
+                cout << members[i].price << "\t";
+                cout << endl;
+                break;
+            }
             cout << members[i].id << "\t";
             cout << members[i].first_name << "\t";
             cout << members[i].middle_name << "\t";
@@ -120,11 +204,64 @@ void Search() {
             cout << members[i].price << "\t";
             cout << endl;
         }
-        else {
-            cout << "Takoi info bolshe net" << endl;
-            break;
-        }
+        break;
     }
+    case 4:
+    {
+        cout << "Vvedite verhnii predel" << endl;
+        cin >> InfoToFound_upper;
+        cout << "Vvedite nizhnii predel" << endl;
+        cin >> InfoToFound_lower;
+        bool flag = false;
+        int i = 0;
+
+        for (i; i < sizeof(members) / sizeof(Member); i++)
+        {
+            if (flag == false)
+            {
+                if (InfoToFound_upper == to_string(members[i].id) || InfoToFound_upper == members[i].first_name || InfoToFound_upper == members[i].middle_name || InfoToFound_upper == members[i].last_name || InfoToFound_upper == members[i].phone || InfoToFound_upper == members[i].date_of_bitrh || InfoToFound_upper == members[i].duration || InfoToFound_upper == members[i].price)
+                {
+                    
+                    cout << endl;
+                    flag = true;
+                    break;
+                }
+            }
+        }
+        while (flag) {
+            if (InfoToFound_lower == to_string(members[i].id) || InfoToFound_lower == members[i].first_name || InfoToFound_lower == members[i].middle_name || InfoToFound_lower == members[i].last_name || InfoToFound_lower == members[i].phone || InfoToFound_lower == members[i].date_of_bitrh || InfoToFound_lower == members[i].duration || InfoToFound_lower == members[i].price) {
+                flag = false;
+                cout << members[i].id << "\t";
+                cout << members[i].first_name << "\t";
+                cout << members[i].middle_name << "\t";
+                cout << members[i].last_name << "\t";
+                cout << members[i].phone << "\t";
+                cout << members[i].date_of_bitrh << "\t";
+                cout << members[i].duration << "\t";
+                cout << members[i].price << "\t";
+                cout << endl;
+                break;
+            }
+            cout << members[i].id << "\t";
+            cout << members[i].first_name << "\t";
+            cout << members[i].middle_name << "\t";
+            cout << members[i].last_name << "\t";
+            cout << members[i].phone << "\t";
+            cout << members[i].date_of_bitrh << "\t";
+            cout << members[i].duration << "\t";
+            cout << members[i].price << "\t";
+            cout << endl;
+            if ((i + 1) == (sizeof(members) / sizeof(Member)) - 2) {
+                cout << "Nizhnii predel ne naiden" << endl;
+                break;
+            }
+            i++;
+
+        }
+        break;
+    }
+    }
+      
 }
 
 void SortFormBigToSmall() {
@@ -140,104 +277,176 @@ void SortFormBigToSmall() {
     Member timeZone[1] = {};
     switch (ColToSort)
     {
+    case 0:
+    {
+        while (sizeof(members) / sizeof(Member))
+        {
+            bool swapped = false;
+
+            for (int i = 1; i < sizeof(members) / sizeof(Member); i++)
+            {
+                if (members[i - 1].id < members[i].id)
+                {
+                    swap(members[i - 1], members[i]);
+                    swapped = true;
+                }
+            }
+
+            if (swapped == false)
+                break;
+        }
+        break;
+    }
     case 1:
     {
-        for (int i = 1; i < sizeof(members) / sizeof(Member); i++)
+        while (sizeof(members) / sizeof(Member))
         {
-            if (members[i].first_name[0] > members[i - 1].first_name[0]) {
-                timeZone[0] = members[i];
-                members[i] = members[i - 1];
-                members[i - 1] = timeZone[0];
+            bool swapped = false;
+
+            for (int i = 1; i < sizeof(members) / sizeof(Member); i++)
+            {
+                if (members[i - 1].first_name[0] < members[i].first_name[0])
+                {
+                    swap(members[i - 1], members[i]);
+                    swapped = true;
+                }
             }
+
+            if (swapped == false)
+                break;
         }
         break;
     }
     case 2:
     {
-        for (int i = 1; i < sizeof(members) / sizeof(Member); i++)
+        while (sizeof(members) / sizeof(Member))
         {
-            if (members[i].middle_name[0] > members[i - 1].middle_name[0]) {
-                timeZone[0] = members[i];
-                members[i] = members[i - 1];
-                members[i - 1] = timeZone[0];
+            bool swapped = false;
+
+            for (int i = 1; i < sizeof(members) / sizeof(Member); i++)
+            {
+                if (members[i - 1].middle_name[0] < members[i].middle_name[0])
+                {
+                    swap(members[i - 1], members[i]);
+                    swapped = true;
+                }
             }
+
+            if (swapped == false)
+                break;
         }
         break;
     }
     case 3:
     {
-        for (int i = 1; i < sizeof(members) / sizeof(Member); i++)
+        while (sizeof(members) / sizeof(Member))
         {
-            if (members[i].last_name[0] > members[i - 1].last_name[0]) {
-                timeZone[0] = members[i];
-                members[i] = members[i - 1];
-                members[i - 1] = timeZone[0];
+            bool swapped = false;
+
+            for (int i = 1; i < sizeof(members) / sizeof(Member); i++)
+            {
+                if (members[i - 1].last_name[0] < members[i].last_name[0])
+                {
+                    swap(members[i - 1], members[i]);
+                    swapped = true;
+                }
             }
+
+            if (swapped == false)
+                break;
         }
         break;
     }
     case 4:
     {
-        for (int i = 1; i < sizeof(members) / sizeof(Member); i++)
+
+        while (sizeof(members) / sizeof(Member))
         {
-            char ch_year[] = { members[i].date_of_bitrh[6], members[i].date_of_bitrh[7], members[i].date_of_bitrh[8], members[i].date_of_bitrh[9] };
-            char ch_year_2[] = { members[i-1].date_of_bitrh[6], members[i-1].date_of_bitrh[7], members[i-1].date_of_bitrh[8], members[i-1].date_of_bitrh[9] };
-            if (atoi(ch_year) < atoi(ch_year_2)){
-                timeZone[0] = members[i];
-                members[i] = members[i - 1];
-                members[i - 1] = timeZone[0];
-                
-            }
-            else if (atoi(ch_year) == atoi(ch_year_2)){
-                char ch_month[] = { members[i].date_of_bitrh[3], members[i].date_of_bitrh[4] };
-                char ch_month_2[] = { members[i - 1].date_of_bitrh[3], members[i - 1].date_of_bitrh[4] };
-                if (atoi(ch_month) < atoi(ch_month_2)) {
-                    timeZone[0] = members[i];
-                    members[i] = members[i - 1];
-                    members[i - 1] = timeZone[0];
-                    
+            bool swapped = false;
+
+            for (int i = 1; i < sizeof(members) / sizeof(Member); i++)
+            {
+                char ch_year[] = { members[i - 1].date_of_bitrh[6], members[i - 1].date_of_bitrh[7], members[i - 1].date_of_bitrh[8], members[i - 1].date_of_bitrh[9] };
+                char ch_year_2[] = { members[i].date_of_bitrh[6], members[i].date_of_bitrh[7], members[i].date_of_bitrh[8], members[i].date_of_bitrh[9] };
+                if (atoi(ch_year) > atoi(ch_year_2)) {
+                    swap(members[i - 1], members[i]);
+                    swapped = true;
                 }
-                else if (atoi(ch_month) == atoi(ch_month_2)){
-                    char ch_day[] = { members[i].date_of_bitrh[0], members[i].date_of_bitrh[1] };
-                    char ch_day_2[] = { members[i-1].date_of_bitrh[0], members[i-1].date_of_bitrh[1] };
-                    if (atoi(ch_day) < atoi(ch_day_2)) {
-                        timeZone[0] = members[i];
-                        members[i] = members[i - 1];
-                        members[i - 1] = timeZone[0];
+                else if (atoi(ch_year) == atoi(ch_year_2)) {
+                    char ch_month[] = { members[i - 1].date_of_bitrh[3], members[i - 1].date_of_bitrh[4] };
+                    char ch_month_2[] = { members[i].date_of_bitrh[3], members[i].date_of_bitrh[4] };
+                    if (atoi(ch_month) > atoi(ch_month_2)) {
+                        swap(members[i - 1], members[i]);
+                        swapped = true;
+                    }
+                    else if (atoi(ch_month) == atoi(ch_month_2)) {
+                        char ch_day[] = { members[i - 1].date_of_bitrh[0], members[i - 1].date_of_bitrh[1] };
+                        char ch_day_2[] = { members[i].date_of_bitrh[0], members[i].date_of_bitrh[1] };
+                        if (atoi(ch_day) > atoi(ch_day_2)) {
+                            swap(members[i - 1], members[i]);
+                            swapped = true;
+                        }
                     }
                 }
-            }            
+            }
+
+            if (swapped == false)
+                break;
         }
         break;
+
+
     }
     case 5:
     {
-        for (int i = 1; i < sizeof(members) / sizeof(Member); i++)
+
+
+        while (sizeof(members) / sizeof(Member))
         {
-            int duration_1 = atoi(members[i].duration);
-            int duration_2 = atoi(members[i - 1].duration);
-            if (duration_1 > duration_2) {
-                timeZone[0] = members[i];
-                members[i] = members[i - 1];
-                members[i - 1] = timeZone[0];
+            bool swapped = false;
+
+            for (int i = 1; i < sizeof(members) / sizeof(Member); i++)
+            {
+                int duration_1 = atoi(members[i - 1].duration);
+                int duration_2 = atoi(members[i].duration);
+                if (duration_1 < duration_2)
+                {
+                    swap(members[i - 1], members[i]);
+                    swapped = true;
+                }
             }
+
+            if (swapped == false)
+                break;
         }
         break;
+
+
     }
     case 6:
     {
-        for (int i = 1; i < sizeof(members) / sizeof(Member); i++)
-        {
 
-            int price_1 = atoi(members[i].price);
-            int price_2 = atoi(members[i - 1].price);
-            if (price_1 > price_2) {
-                timeZone[0] = members[i];
-                members[i] = members[i - 1];
-                members[i - 1] = timeZone[0];
+
+        while (sizeof(members) / sizeof(Member))
+        {
+            bool swapped = false;
+
+            for (int i = 1; i < sizeof(members) / sizeof(Member); i++)
+            {
+                int price_1 = atoi(members[i - 1].price);
+                int price_2 = atoi(members[i].price);
+                if (price_1 < price_2)
+                {
+                    swap(members[i - 1], members[i]);
+                    swapped = true;
+                }
             }
+
+            if (swapped == false)
+                break;
         }
         break;
+
     }
     default:
         cout << "Takoi komandi net" << endl;
@@ -246,6 +455,7 @@ void SortFormBigToSmall() {
 
 void SortFromSmallToBig() {
     int ColToSort = -1;
+    cout << "0.id" << endl;
     cout << "1.imia" << endl;
     cout << "2.otchestvo" << endl;
     cout << "3.familia" << endl;
@@ -256,113 +466,269 @@ void SortFromSmallToBig() {
     Member timeZone[1] = {};
     switch (ColToSort) 
     {
+    case 0:
+    {
+        while (sizeof(members) / sizeof(Member))
+        {
+            bool swapped = false;
+
+            for (int i = 1; i < sizeof(members) / sizeof(Member); i++)
+            {
+                if (members[i - 1].id > members[i].id)
+                {
+                    swap(members[i - 1], members[i]);
+                    swapped = true;
+                }
+            }
+
+            if (swapped == false)
+                break;
+        }
+        break;
+    }
     case 1:
     {
-        for (int i = 1; i < sizeof(members) / sizeof(Member); i++)
+        while (sizeof(members) / sizeof(Member))
         {
-            if (members[i].first_name[0] < members[i - 1].first_name[0]) {
-                timeZone[0] = members[i];
-                members[i] = members[i - 1];
-                members[i - 1] = timeZone[0];
+            bool swapped = false;
+
+            for (int i = 1; i < sizeof(members) / sizeof(Member); i++)
+            {
+                if (members[i-1].first_name[0] > members[i].first_name[0])
+                {
+                    swap(members[i-1], members[i]);
+                    swapped = true;
+                }
             }
+
+            if (swapped == false)
+                break;
         }
         break;
     }
     case 2:
     {
-        for (int i = 1; i < sizeof(members) / sizeof(Member); i++)
+        while (sizeof(members) / sizeof(Member))
         {
-            if (members[i].middle_name[0] < members[i - 1].middle_name[0]) {
-                timeZone[0] = members[i];
-                members[i] = members[i - 1];
-                members[i - 1] = timeZone[0];
+            bool swapped = false;
+
+            for (int i = 1; i < sizeof(members) / sizeof(Member); i++)
+            {
+                if (members[i - 1].middle_name[0] > members[i].middle_name[0])
+                {
+                    swap(members[i - 1], members[i]);
+                    swapped = true;
+                }
             }
+
+            if (swapped == false)
+                break;
         }
         break;
     }
     case 3:
     {
-        for (int i = 1; i < sizeof(members) / sizeof(Member); i++)
+        while (sizeof(members) / sizeof(Member))
         {
-            if (members[i].last_name[0] < members[i - 1].last_name[0]) {
-                timeZone[0] = members[i];
-                members[i] = members[i - 1];
-                members[i - 1] = timeZone[0];
+            bool swapped = false;
+
+            for (int i = 1; i < sizeof(members) / sizeof(Member); i++)
+            {
+                if (members[i - 1].last_name[0] > members[i].last_name[0])
+                {
+                    swap(members[i - 1], members[i]);
+                    swapped = true;
+                }
             }
+
+            if (swapped == false)
+                break;
         }
         break;
     }
     case 4:
     {
-        for (int i = 1; i < sizeof(members) / sizeof(Member); i++)
-        {
-            char ch_year[] = { members[i].date_of_bitrh[6], members[i].date_of_bitrh[7], members[i].date_of_bitrh[8], members[i].date_of_bitrh[9] };
-            char ch_year_2[] = { members[i - 1].date_of_bitrh[6], members[i - 1].date_of_bitrh[7], members[i - 1].date_of_bitrh[8], members[i - 1].date_of_bitrh[9] };
-            if (atoi(ch_year) > atoi(ch_year_2)) {
-                timeZone[0] = members[i];
-                members[i] = members[i - 1];
-                members[i - 1] = timeZone[0];
+        
+            while (sizeof(members) / sizeof(Member))
+            {
+                bool swapped = false;
 
-            }
-            else if (atoi(ch_year) == atoi(ch_year_2)) {
-                char ch_month[] = { members[i].date_of_bitrh[3], members[i].date_of_bitrh[4] };
-                char ch_month_2[] = { members[i - 1].date_of_bitrh[3], members[i - 1].date_of_bitrh[4] };
-                if (atoi(ch_month) > atoi(ch_month_2)) {
-                    timeZone[0] = members[i];
-                    members[i] = members[i - 1];
-                    members[i - 1] = timeZone[0];
-
-                }
-                else if (atoi(ch_month) == atoi(ch_month_2)) {
-                    char ch_day[] = { members[i].date_of_bitrh[0], members[i].date_of_bitrh[1] };
-                    char ch_day_2[] = { members[i - 1].date_of_bitrh[0], members[i - 1].date_of_bitrh[1] };
-                    if (atoi(ch_day) > atoi(ch_day_2)) {
-                        timeZone[0] = members[i];
-                        members[i] = members[i - 1];
-                        members[i - 1] = timeZone[0];
+                for (int i = 1; i < sizeof(members) / sizeof(Member); i++)
+                {
+                    char ch_year[] = { members[i-1].date_of_bitrh[6], members[i-1].date_of_bitrh[7], members[i-1].date_of_bitrh[8], members[i-1].date_of_bitrh[9] };
+                    char ch_year_2[] = { members[i].date_of_bitrh[6], members[i].date_of_bitrh[7], members[i].date_of_bitrh[8], members[i].date_of_bitrh[9] };
+                    if (atoi(ch_year) < atoi(ch_year_2)) {
+                        swap(members[i - 1], members[i]);
+                        swapped = true;
+                    }
+                    else if (atoi(ch_year) == atoi(ch_year_2)) {
+                        char ch_month[] = { members[i-1].date_of_bitrh[3], members[i-1].date_of_bitrh[4] };
+                        char ch_month_2[] = { members[i].date_of_bitrh[3], members[i].date_of_bitrh[4] };
+                        if (atoi(ch_month) < atoi(ch_month_2)) {
+                            swap(members[i - 1], members[i]);
+                            swapped = true;
+                        }
+                        else if (atoi(ch_month) == atoi(ch_month_2)) {
+                            char ch_day[] = { members[i-1].date_of_bitrh[0], members[i-1].date_of_bitrh[1] };
+                            char ch_day_2[] = { members[i].date_of_bitrh[0], members[i].date_of_bitrh[1] };
+                            if (atoi(ch_day) < atoi(ch_day_2)) {
+                                swap(members[i - 1], members[i]);
+                                swapped = true;
+                            }
+                        }
                     }
                 }
+
+                if (swapped == false)
+                    break;
             }
-        }
-        break;
+            break;
+            
+        
     }
     case 5:
     {
-        for (int i = 1; i < sizeof(members) / sizeof(Member); i++)
-        {
-            int duration_1 = atoi(members[i].duration);
-            int duration_2 = atoi(members[i - 1].duration);
-            if (duration_1 < duration_2) {
-                timeZone[0] = members[i];
-                members[i] = members[i - 1];
-                members[i - 1] = timeZone[0];
+        
+        
+            while (sizeof(members) / sizeof(Member))
+            {
+                bool swapped = false;
+
+                for (int i = 1; i < sizeof(members) / sizeof(Member); i++)
+                {
+                    int duration_1 = atoi(members[i-1].duration);
+                    int duration_2 = atoi(members[i].duration);
+                    if (duration_1 > duration_2)
+                    {
+                        swap(members[i - 1], members[i]);
+                        swapped = true;
+                    }
+                }
+
+                if (swapped == false)
+                    break;
             }
-        }
-        break;
+            break;
+        
+        
     }
     case 6:
     {
-        for (int i = 1; i < sizeof(members) / sizeof(Member); i++)
-        {
+        
             
-            int price_1 = atoi(members[i].price);
-            int price_2 = atoi(members[i - 1].price);
-            if (price_1 < price_2) {
-                timeZone[0] = members[i];
-                members[i] = members[i - 1];
-                members[i - 1] = timeZone[0];
+            while (sizeof(members) / sizeof(Member))
+            {
+                bool swapped = false;
+
+                for (int i = 1; i < sizeof(members) / sizeof(Member); i++)
+                {
+                    int price_1 = atoi(members[i-1].price);
+                    int price_2 = atoi(members[i].price);
+                    if (price_1 > price_2)
+                    {
+                        swap(members[i - 1], members[i]);
+                        swapped = true;
+                    }
+                }
+
+                if (swapped == false)
+                    break;
             }
-        }
-        break;
+            break;
+        
     }
     default:
         cout << "Takoi komandi net" << endl;
     }
 }
 
+
+void ReadFromFile() {
+    string line;
+
+    ifstream in("db.txt");
+    if (in.is_open()) {
+        int j = 0;
+        int i = 0;
+        int k = 0;
+        char* newMass_id = new char[10000];
+        while (getline(in, line))
+        {
+            for (i; i < sizeof(members) / sizeof(Member); ) {
+                while (line[j] != '\t') {
+                    newMass_id[j] = (line[j]);
+                    j++;
+                }
+                members[i].id = atoi(newMass_id);
+                j++;
+                while (line[j] != '\t') {
+                    members[i].first_name[k] = line[j];
+                    j++;
+                    k++;
+                }j++;
+                k = 0;
+                while (line[j] != '\t') {
+                    members[i].middle_name[k] = line[j];
+                    j++;
+                    k++;
+                }j++;
+                k = 0;
+                while (line[j] != '\t') {
+                    members[i].last_name[k] = line[j];
+                    j++;
+                    k++;
+                }j++;
+                k = 0;
+                while (line[j] != '\t') {
+                    members[i].phone[k] = line[j];
+                    j++;
+                    k++;
+                }j++;
+                k = 0;
+                while (line[j] != '\t') {
+                    members[i].date_of_bitrh[k] = line[j];
+                    j++;
+                    k++;
+                }j++;
+                k = 0;
+                while (line[j] != '\t') {
+                    members[i].duration[k] = line[j];
+                    j++;
+                    k++;
+                }j++;
+                k = 0;
+
+                while (line[j] != '\t') {
+                    if ((j + 1) == size(line)) {
+                        members[i].price[k] = line[j];
+                        members[i].price[k + 1] = line[j + 1];
+                        break;
+                    }
+                    else {
+                        members[i].price[k] = line[j];
+                        j++;
+                        k++;
+                    }
+                }
+                j = 0;
+                k = 0;
+                i++;
+
+                break;
+
+            }
+
+        }
+        delete[] newMass_id;
+
+    }
+    in.close();
+}
+
 void WriteToFile() {
+    ReadFromFile();
     ofstream out;
-    out.open("db.txt", ios::app);
+    out.open("db.txt");
     if (out.is_open()) {
         for (int i = 0; i < sizeof(members) / sizeof(Member); i++)
         {
@@ -386,32 +752,6 @@ void WriteToFile() {
         }
     }
     out.close();
-}
-
-void ReadFromFile() {
-    string line;
-    
-    ifstream in("db.txt");
-    if (in.is_open()) {
-        int j = 0;
-        while (j!=3)
-        {//Dodelai
-            int i = 0;
-            i++;
-            for (i; i < sizeof(members) / sizeof(Member);) {
-
-                
-
-            }
-        }
-        
-        
-    }
-    in.close();
-    
-    
-
-
 }
 
 void PreSort()

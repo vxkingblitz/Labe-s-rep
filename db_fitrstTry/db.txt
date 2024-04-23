@@ -1,4 +1,5 @@
-
-0	Vladislav	Ruslanovich	Kozhokaru	+79644822178	30.04.2005	infinity	free	
+0	Vlad	Ruslanovich	Kozhokaru	+79644822178	30.04.2005	228	0	
 1	Danya	Vladislavovich	Vershkov	+79789660912	24.11.2005	12	100	
 2	Artem	Andreevich	Pavlov	+79685667890	16.01.2006	36	2500	
+3	Andrei	Konstantinovich	Ixteen	+79660191375	30.04.2005	12	100		
+4	Anna	Rinatovna	Ershova	+79432813474	01.02.2004	44	5600	
