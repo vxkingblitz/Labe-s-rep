@@ -1,0 +1,8 @@
+﻿  checKK.cpp
+  laba2_inheritance.cpp
+  Matrix.cpp
+A:\VSprojects\laba2_inheritance\laba2_inheritance\Matrix.cpp(10,13): warning C4244: аргумент: преобразование "time_t" в "unsigned int", возможна потеря данных
+  Создание кода...
+  laba2_inheritance.vcxproj -> A:\VSprojects\laba2_inheritance\x64\Debug\laba2_inheritance.exe
+  "pwsh.exe" не является внутренней или внешней
+  командой, исполняемой программой или пакетным файлом.
